@@ -34,8 +34,22 @@ router.route('/products').post(function(req, res) {
     })
   });
 
-  router.route('/products/').delete(function(req, res) {
-    res.send(req.body.data);
+  router.route('/products/:productId').delete(function(req, res) {
+    Product.remove({
+      _id: req.params.productId
+    }, function(err, Product) {
+      if (err)
+        res.send(err);
+      res.json({ message: 'Task successfully deleted' });
+    });
+  });
+
+  router.route('/products/:productId').put(function(req, res) {
+    Product.findOneAndUpdate({_id:req.params.productId}, req.body, {new: true}, function(err, task) {
+      if (err)
+        res.send(err);
+      res.json(task);
+    });
   });
 
 
