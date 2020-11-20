@@ -34,5 +34,9 @@ router.route('/products').post(function(req, res) {
     })
   });
 
+  router.route('/products/').delete(function(req, res) {
+    res.send(req.body.data);
+  });
+
 
 module.exports = router;
